@@ -17,7 +17,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Auth');
+$routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -32,6 +32,22 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Auth::index');
+$routes->post('/login', 'Auth::login');
+$routes->get('/logout', 'Auth::logout');
+
+$routes->get('/dashboard', 'Dashboard::index');
+
+$routes->get('/imunisasi', 'Imunisasi::index');
+$routes->post('/imunisasi', 'Imunisasi::create');
+$routes->delete('/imunisasi/(:num)', 'Imunisasi::delete/$1');
+
+$routes->get('/vitamin', 'Vitamin::index');
+$routes->post('/vitamin', 'Vitamin::create');
+$routes->delete('/vitamin/(:num)', 'Vitamin::delete/$1');
+
+$routes->get('/balita', 'Balita::index');
+$routes->get('/balita/new', 'Balita::new');
+$routes->post('/balita', 'Balita::create');
 
 /*
  * --------------------------------------------------------------------
