@@ -47,7 +47,27 @@ $routes->delete('/vitamin/(:num)', 'Vitamin::delete/$1');
 
 $routes->get('/balita', 'Balita::index');
 $routes->get('/balita/new', 'Balita::new');
+$routes->get('/balita/edit/(:num)', 'Balita::edit/$1');
+$routes->get('/balita/(:num)', 'Balita::show/$1');
 $routes->post('/balita', 'Balita::create');
+$routes->put('/balita/(:num)', 'Balita::update/$1');
+$routes->delete('/balita/(:num)', 'Balita::delete/$1');
+
+$routes->get('/kehadiran', 'Kehadiran::index');
+$routes->get('/kehadiran/new', 'Kehadiran::new');
+$routes->get('/kehadiran/edit/(:num)', 'Kehadiran::edit/$1');
+$routes->get('/kehadiran/(:num)', 'Kehadiran::show/$1');
+$routes->post('/kehadiran', 'Kehadiran::create');
+$routes->put('/kehadiran/(:num)', 'Kehadiran::update/$1');
+$routes->delete('/kehadiran/(:num)', 'Kehadiran::delete/$1');
+
+$routes->get('/penimbangan', 'Penimbangan::index');
+$routes->get('/penimbangan/new', 'Penimbangan::new');
+$routes->get('/penimbangan/edit/(:num)', 'Penimbangan::edit/$1');
+$routes->get('/penimbangan/(:num)', 'Penimbangan::show/$1');
+$routes->post('/penimbangan', 'Penimbangan::create');
+$routes->put('/penimbangan/(:num)', 'Penimbangan::update/$1');
+$routes->delete('/penimbangan/(:num)', 'Penimbangan::delete/$1');
 
 /*
  * --------------------------------------------------------------------

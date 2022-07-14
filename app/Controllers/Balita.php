@@ -35,7 +35,12 @@ class Balita extends BaseController
      */
     public function show($id = null)
     {
-        //
+        $data = [
+            'title' => 'Detail Data Balita',
+            'balita' => $this->balita->find($id),
+        ];
+
+        return view('balita/detail_balita', $data);
     }
 
     /**
@@ -98,7 +103,7 @@ class Balita extends BaseController
                     'numeric' => 'Panjang Badan harus angka!',
                 ]
             ],
-            'berat_badan' => [
+            'berat_lahir' => [
                 'rules' => 'required|decimal',
                 'errors' => [
                     'required' => 'Berat Badan harus diisi!',
@@ -123,7 +128,7 @@ class Balita extends BaseController
             'alamat' => $this->request->getVar('alamat'),
             'nama_ibu' => $this->request->getVar('nama_ibu'),
             'panjang_badan' => $this->request->getVar('panjang_badan'),
-            'berat_lahir' => $this->request->getVar('berat_badan'),
+            'berat_lahir' => $this->request->getVar('berat_lahir'),
             'lingkar_kepala' => $this->request->getVar('lingkar_kepala'),
             'date_created' => date('Y-m-d h:m:s'),
         ]);
@@ -139,7 +144,13 @@ class Balita extends BaseController
      */
     public function edit($id = null)
     {
-        //
+        $data = [
+            'title' => 'Ubah Data Balita',
+            'validation' => Services::validation(),
+            'balita' => $this->balita->find($id),
+        ];
+
+        return view('balita/edit_balita', $data);
     }
 
     /**
@@ -149,7 +160,77 @@ class Balita extends BaseController
      */
     public function update($id = null)
     {
-        //
+        if (!$this->validate([
+            'nama_balita' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama Balita harus diisi!'
+                ]
+            ],
+            'tanggal_lahir' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Tanggal Lahir harus diisi!'
+                ]
+            ],
+            'jenis_kelamin' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Jenis Kelamin harus diisi!'
+                ]
+            ],
+            'alamat' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Alamat harus diisi!'
+                ]
+            ],
+            'nama_ibu' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama Ibu harus diisi!'
+                ]
+            ],
+            'panjang_badan' => [
+                'rules' => 'required|numeric',
+                'errors' => [
+                    'required' => 'Panjang Badan harus diisi!',
+                    'numeric' => 'Panjang Badan harus angka!',
+                ]
+            ],
+            'berat_lahir' => [
+                'rules' => 'required|decimal',
+                'errors' => [
+                    'required' => 'Berat Badan harus diisi!',
+                    'decimal' => 'Berat Badan tidak valid!',
+                ]
+            ],
+            'lingkar_kepala' => [
+                'rules' => 'required|numeric',
+                'errors' => [
+                    'required' => 'Lingkar Kepala harus diisi!',
+                    'numeric' => 'Lingkar Kepala harus angka!',
+                ]
+            ],
+        ])) {
+            return redirect()->to('/balita/edit/' . $this->request->getVar('id_balita'))->withInput();
+        }
+
+        $this->balita->save([
+            'id_balita' => $id,
+            'nama_balita' => $this->request->getVar('nama_balita'),
+            'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
+            'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+            'alamat' => $this->request->getVar('alamat'),
+            'nama_ibu' => $this->request->getVar('nama_ibu'),
+            'panjang_badan' => $this->request->getVar('panjang_badan'),
+            'berat_lahir' => $this->request->getVar('berat_lahir'),
+            'lingkar_kepala' => $this->request->getVar('lingkar_kepala'),
+            'date_created' => date('Y-m-d h:m:s'),
+        ]);
+
+        session()->setFlashdata('message', '<div class="alert alert-success" role="alert">Data <strong>balita</strong> berhasil diubah!</div>');
+        return redirect()->to('/balita')->withInput();
     }
 
     /**
@@ -159,6 +240,8 @@ class Balita extends BaseController
      */
     public function delete($id = null)
     {
-        //
+        $this->balita->delete($id);
+        session()->setFlashdata('message', '<div class="alert alert-success" role="alert">Data <strong>balita</strong> berhasil dihapus!</div>');
+        return redirect()->to('/balita')->withInput();
     }
 }

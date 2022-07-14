@@ -14,13 +14,15 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-CI_ENVIRONMENT = development
+# CI_ENVIRONMENT = production
 
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
-app.baseURL = 'http://localhost:8080/'
+# app.baseURL = ''
+# If you have trouble with `.`, you could also use `_`.
+# app_baseURL = ''
 # app.forceGlobalSecureRequests = false
 
 # app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
@@ -37,11 +39,11 @@ app.baseURL = 'http://localhost:8080/'
 # DATABASE
 #--------------------------------------------------------------------
 
-database.default.hostname = localhost
-database.default.database = posyandu
-database.default.username = root
-database.default.password = 
-database.default.DBDriver = MySQLi
+# database.default.hostname = localhost
+# database.default.database = ci4
+# database.default.username = root
+# database.default.password = root
+# database.default.DBDriver = MySQLi
 # database.default.DBPrefix =
 
 # database.tests.hostname = localhost
@@ -60,7 +62,7 @@ database.default.DBDriver = MySQLi
 # contentsecuritypolicy.scriptSrc = 'self'
 # contentsecuritypolicy.styleSrc = 'self'
 # contentsecuritypolicy.imageSrc = 'self'
-# contentsecuritypolicy.base_uri = null
+# contentsecuritypolicy.baseURI = null
 # contentsecuritypolicy.childSrc = null
 # contentsecuritypolicy.connectSrc = 'self'
 # contentsecuritypolicy.fontSrc = null
@@ -73,6 +75,9 @@ database.default.DBDriver = MySQLi
 # contentsecuritypolicy.reportURI = null
 # contentsecuritypolicy.sandbox = false
 # contentsecuritypolicy.upgradeInsecureRequests = false
+# contentsecuritypolicy.styleNonceTag = '{csp-style-nonce}'
+# contentsecuritypolicy.scriptNonceTag = '{csp-script-nonce}'
+# contentsecuritypolicy.autoNonce = true
 
 #--------------------------------------------------------------------
 # COOKIE

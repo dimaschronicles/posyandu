@@ -21,7 +21,7 @@
                     Data Vitamin
                 </a>
                 <div class="sb-sidenav-menu-heading">Layanan</div>
-                <a class="nav-link" href="">
+                <a class="nav-link <?= ($title == "Data Kehadiran") ? 'active' : ''; ?>" href="/kehadiran">
                     <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                     Data Kehadiran
                 </a>

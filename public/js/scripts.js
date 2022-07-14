@@ -33,3 +33,9 @@ function showPass() {
         pass.type = "password";
     }
 }
+
+$(document).ready(function () {
+    $('select').select2({
+        theme: "bootstrap-5",
+    });
+});
