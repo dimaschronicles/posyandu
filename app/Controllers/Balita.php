@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\BalitaModel;
+use App\Models\IbuModel;
 use Config\Services;
 
 class Balita extends BaseController
@@ -11,6 +12,7 @@ class Balita extends BaseController
     public function __construct()
     {
         $this->balita = new BalitaModel();
+        $this->ibu = new IbuModel();
     }
 
     /**
@@ -22,7 +24,7 @@ class Balita extends BaseController
     {
         $data = [
             'title' => 'Data Balita',
-            'balita' => $this->balita->orderBy('nama_balita', 'asc')->findAll(),
+            'balita' => $this->balita->findBalitaIbu(),
         ];
 
         return view('balita/index', $data);
@@ -37,7 +39,7 @@ class Balita extends BaseController
     {
         $data = [
             'title' => 'Detail Data Balita',
-            'balita' => $this->balita->find($id),
+            'balita' => $this->balita->findBalitaIbu($id),
         ];
 
         return view('balita/detail_balita', $data);
@@ -53,6 +55,7 @@ class Balita extends BaseController
         $data = [
             'title' => 'Tambah Data Balita',
             'validation' => Services::validation(),
+            'ibu' => $this->ibu->findAll(),
         ];
 
         return view('balita/add_balita', $data);
@@ -66,13 +69,22 @@ class Balita extends BaseController
     public function create()
     {
         if (!$this->validate([
+            'nik_balita' => [
+                'rules' => 'required|numeric|min_length[16]|max_length[16]',
+                'errors' => [
+                    'required' => 'NIK Balita harus diisi!',
+                    'numeric' => 'NIK Balita harus angka!',
+                    'min_length' => 'NIK Balita kurang dari 16 digit!',
+                    'max_length' => 'NIK Balita lebih dari 16 digit!',
+                ]
+            ],
             'nama_balita' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Nama Balita harus diisi!'
                 ]
             ],
-            'tanggal_lahir' => [
+            'tanggal_lahir_balita' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Tanggal Lahir harus diisi!'
@@ -90,7 +102,7 @@ class Balita extends BaseController
                     'required' => 'Alamat harus diisi!'
                 ]
             ],
-            'nama_ibu' => [
+            'id_ibu' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Nama Ibu harus diisi!'
@@ -122,15 +134,15 @@ class Balita extends BaseController
         }
 
         $this->balita->save([
+            'id_ibu' => $this->request->getVar('nama_ibu'),
+            'id_user' => $this->request->getVar('id_user'),
             'nama_balita' => $this->request->getVar('nama_balita'),
-            'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
-            'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
-            'alamat' => $this->request->getVar('alamat'),
-            'nama_ibu' => $this->request->getVar('nama_ibu'),
+            'tanggal_lahir_balita' => $this->request->getVar('tanggal_lahir'),
+            'jk_balita' => $this->request->getVar('jenis_kelamin'),
             'panjang_badan' => $this->request->getVar('panjang_badan'),
             'berat_lahir' => $this->request->getVar('berat_lahir'),
             'lingkar_kepala' => $this->request->getVar('lingkar_kepala'),
-            'date_created' => date('Y-m-d h:m:s'),
+            'date_created_balita' => date('Y-m-d h:m:s'),
         ]);
 
         session()->setFlashdata('message', '<div class="alert alert-success" role="alert">Data <strong>balita</strong> berhasil ditambahkan!</div>');
@@ -148,6 +160,7 @@ class Balita extends BaseController
             'title' => 'Ubah Data Balita',
             'validation' => Services::validation(),
             'balita' => $this->balita->find($id),
+            'ibu' => $this->ibu->findAll(),
         ];
 
         return view('balita/edit_balita', $data);
@@ -161,13 +174,22 @@ class Balita extends BaseController
     public function update($id = null)
     {
         if (!$this->validate([
+            'nik_balita' => [
+                'rules' => 'required|numeric|min_length[16]|max_length[16]',
+                'errors' => [
+                    'required' => 'NIK Balita harus diisi!',
+                    'numeric' => 'NIK Balita harus angka!',
+                    'min_length' => 'NIK Balita kurang dari 16 digit!',
+                    'max_length' => 'NIK Balita lebih dari 16 digit!',
+                ]
+            ],
             'nama_balita' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Nama Balita harus diisi!'
                 ]
             ],
-            'tanggal_lahir' => [
+            'tanggal_lahir_balita' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Tanggal Lahir harus diisi!'
@@ -179,13 +201,7 @@ class Balita extends BaseController
                     'required' => 'Jenis Kelamin harus diisi!'
                 ]
             ],
-            'alamat' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Alamat harus diisi!'
-                ]
-            ],
-            'nama_ibu' => [
+            'id_ibu' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Nama Ibu harus diisi!'
@@ -218,15 +234,15 @@ class Balita extends BaseController
 
         $this->balita->save([
             'id_balita' => $id,
+            'id_ibu' => $this->request->getVar('id_ibu'),
+            'id_user' => $this->request->getVar('id_user'),
             'nama_balita' => $this->request->getVar('nama_balita'),
-            'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
-            'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
-            'alamat' => $this->request->getVar('alamat'),
-            'nama_ibu' => $this->request->getVar('nama_ibu'),
+            'tanggal_lahir_balita' => $this->request->getVar('tanggal_lahir_balita'),
+            'jk_balita' => $this->request->getVar('jenis_kelamin'),
             'panjang_badan' => $this->request->getVar('panjang_badan'),
             'berat_lahir' => $this->request->getVar('berat_lahir'),
             'lingkar_kepala' => $this->request->getVar('lingkar_kepala'),
-            'date_created' => date('Y-m-d h:m:s'),
+            'date_updated_balita' => date('Y-m-d h:m:s'),
         ]);
 
         session()->setFlashdata('message', '<div class="alert alert-success" role="alert">Data <strong>balita</strong> berhasil diubah!</div>');

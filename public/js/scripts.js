@@ -34,6 +34,18 @@ function showPass() {
     }
 }
 
+function showPassKader() {
+    let pass = document.getElementById("password");
+    let pass_conf = document.getElementById("password_conf");
+    if (pass.type === "password" && pass_conf.type === "password") {
+        pass.type = "text";
+        pass_conf.type = "text";
+    } else {
+        pass.type = "password";
+        pass_conf.type = "password";
+    }
+}
+
 $(document).ready(function () {
     $('select').select2({
         theme: "bootstrap-5",

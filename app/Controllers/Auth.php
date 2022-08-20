@@ -53,10 +53,7 @@ class Auth extends BaseController
                     'email' => $dataUser['email'],
                     'role' => $dataUser['role'],
                 ]);
-
-                if ($dataUser['role'] == 1) {
-                    return redirect()->to('dashboard');
-                }
+                return redirect()->to('/dashboard');
             } else {
                 session()->setFlashdata('message', '<div class="alert alert-danger" role="alert"><strong>Password</strong> anda tidak valid!</div>');
                 return redirect()->to('/')->withInput();
