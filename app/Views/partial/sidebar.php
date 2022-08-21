@@ -39,10 +39,6 @@
                     Data Balita
                 </a>
                 <div class="sb-sidenav-menu-heading">Layanan</div>
-                <!-- <a class="nav-link <?= ($title == "Data Kehadiran") ? 'active' : ''; ?>" href="/kehadiran">
-                    <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
-                    Data Kehadiran
-                </a> -->
                 <a class="nav-link <?= ($title == "Imunisasi Balita") ? 'active' : ''; ?>" href="/imunisasibalita">
                     <div class="sb-nav-link-icon"><i class="fas fa-syringe"></i></div>
                     Imunisasi Balita
@@ -51,7 +47,7 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-child"></i></div>
                     Pemeriksaan Balita
                 </a>
-                <a class="nav-link <?= ($title == "Pemeriksaan Balita") ? 'active' : ''; ?>" href="/periksaibu">
+                <a class="nav-link <?= ($title == "Pemeriksaan Ibu Hamil") ? 'active' : ''; ?>" href="/periksaibu">
                     <div class="sb-nav-link-icon"><i class="fas fa-stethoscope"></i></div>
                     Pemeriksaan Ibu Hamil
                 </a>
@@ -60,10 +56,18 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-file"></i></div>
                     Kehadiran
                 </a> -->
-                <a class="nav-link" href="">
+                <a class="nav-link collapsed <?= ($title == "Laporan Imunisasi Balita" || $title == "Laporan Pemeriksaan Balita" || $title == "Laporan Pemeriksaan Ibu Hamil") ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsLap" aria-expanded="false" aria-controls="collapseLayoutsLap">
                     <div class="sb-nav-link-icon"><i class="fas fa-file"></i></div>
-                    Pemeriksaan
+                    Data Laporan
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
+                <div class="collapse <?= ($title == "Laporan Imunisasi Balita" || $title == "Laporan Pemeriksaan Balita" || $title == "Laporan Pemeriksaan Ibu Hamil") ? 'show' : ''; ?>" id="collapseLayoutsLap" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link <?= ($title == "Laporan Imunisasi Balita") ? 'active' : ''; ?>" href="/laporan/imunisasibalita">Imunisasi Balita</a>
+                        <a class="nav-link <?= ($title == "Laporan Pemeriksaan Balita") ? 'active' : ''; ?>" href="/laporan/periksabalita">Pemeriksaan Balita</a>
+                        <a class="nav-link <?= ($title == "Laporan Pemeriksaan Ibu Hamil") ? 'active' : ''; ?>" href="/laporan/periksaibu">Pemeriksaan Ibu Hamil</a>
+                    </nav>
+                </div>
             </div>
         </div>
     </nav>

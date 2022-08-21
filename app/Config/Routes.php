@@ -69,14 +69,6 @@ $routes->post('/balita', 'Balita::create');
 $routes->put('/balita/(:num)', 'Balita::update/$1');
 $routes->delete('/balita/(:num)', 'Balita::delete/$1');
 
-$routes->get('/kehadiran', 'Kehadiran::index');
-$routes->get('/kehadiran/new', 'Kehadiran::new');
-$routes->get('/kehadiran/edit/(:num)', 'Kehadiran::edit/$1');
-$routes->get('/kehadiran/(:num)', 'Kehadiran::show/$1');
-$routes->post('/kehadiran', 'Kehadiran::create');
-$routes->put('/kehadiran/(:num)', 'Kehadiran::update/$1');
-$routes->delete('/kehadiran/(:num)', 'Kehadiran::delete/$1');
-
 $routes->get('/imunisasibalita', 'ImunisasiBalita::index');
 $routes->get('/imunisasibalita/new', 'ImunisasiBalita::new');
 $routes->get('/imunisasibalita/edit/(:num)', 'ImunisasiBalita::edit/$1');
@@ -101,6 +93,17 @@ $routes->get('/periksaibu/(:num)', 'PeriksaIbu::show/$1');
 $routes->post('/periksaibu', 'PeriksaIbu::create');
 $routes->put('/periksaibu/(:num)', 'PeriksaIbu::update/$1');
 $routes->delete('/periksaibu/(:num)', 'PeriksaIbu::delete/$1');
+
+$routes->get('/laporan/imunisasibalita', 'Laporan::imunisasiBalita');
+$routes->get('/laporan/imunisasibalitaprint', 'Laporan::imunisasiBalitaPrint');
+$routes->get('/laporan/imunisasibalitapdf', 'Laporan::imunisasiBalitaPdf');
+$routes->get('/laporan/periksabalita', 'Laporan::periksaBalita');
+$routes->get('/laporan/periksabalitaprint', 'Laporan::periksaBalitaPrint');
+$routes->get('/laporan/periksabalitapdf', 'Laporan::periksaBalitaPdf');
+$routes->get('/laporan/periksaibu', 'Laporan::periksaIbu');
+$routes->get('/laporan/periksaibuprint', 'Laporan::periksaIbuPrint');
+$routes->get('/laporan/periksaibupdf', 'Laporan::periksaIbuPdf');
+
 
 /*
  * --------------------------------------------------------------------

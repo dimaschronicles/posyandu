@@ -26,7 +26,6 @@
                                 <th>No</th>
                                 <th>Tanggal Periksa</th>
                                 <th>Nama Ibu</th>
-                                <th>Umur</th>
                                 <th>Alamat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -36,7 +35,6 @@
                                 <th>No</th>
                                 <th>Tanggal Periksa</th>
                                 <th>Nama Ibu</th>
-                                <th>Umur</th>
                                 <th>Alamat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -44,24 +42,23 @@
                         <tbody>
                             <?php
                             $j = 1;
-                            foreach ($periksaBalita as $value) : ?>
+                            foreach ($periksaIbu as $value) : ?>
                                 <tr>
                                     <td><?= $j++; ?></td>
-                                    <td><?= date_indo($value['tanggal_periksa']); ?></td>
-                                    <td><?= $value['nama_balita']; ?></td>
-                                    <td><?= get_umur($value['tanggal_lahir_balita']); ?></td>
+                                    <td><?= date_indo($value['tanggal_periksa_ibu']); ?></td>
+                                    <td><?= $value['nama_ibu']; ?></td>
                                     <td><?= $value['alamat_ibu']; ?></td>
                                     <td>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?= $value['id_periksa_balita']; ?>">
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?= $value['id_periksa_ibu']; ?>">
                                             <i class="fas fa-trash"></i>
                                         </button>
-                                        <a href="/periksabalita/edit/<?= $value['id_periksa_balita']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                        <a href="/periksabalita/<?= $value['id_periksa_balita']; ?>" class="btn btn-info"><i class="fas fa-info-circle"></i></a>
+                                        <a href="/periksaibu/edit/<?= $value['id_periksa_ibu']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                        <a href="/periksaibu/<?= $value['id_periksa_ibu']; ?>" class="btn btn-info"><i class="fas fa-info-circle"></i></a>
                                     </td>
                                 </tr>
 
                                 <!-- Modal Hapus Data -->
-                                <div class="modal fade" id="delete<?= $value['id_periksa_balita']; ?>" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+                                <div class="modal fade" id="delete<?= $value['id_periksa_ibu']; ?>" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -72,7 +69,7 @@
                                                 <p>Apakah data ini akan dihapus?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <form action="/periksabalita/<?= $value['id_periksa_balita']; ?>" method="POST">
+                                                <form action="/periksaibu/<?= $value['id_periksa_ibu']; ?>" method="POST">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
                                                     <button type="submit" class="btn btn-danger">Ya</button>

@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\IbuModel;
+use App\Models\ImunisasiModel;
+use App\Models\PeriksaIbuModel;
+use App\Models\VitaminModel;
 use Config\Services;
 
 class PeriksaIbu extends BaseController
@@ -11,6 +14,9 @@ class PeriksaIbu extends BaseController
     public function __construct()
     {
         $this->ibu = new IbuModel();
+        $this->imunisasi = new ImunisasiModel();
+        $this->vitamin = new VitaminModel();
+        $this->periksaIbu = new PeriksaIbuModel();
     }
 
     /**
@@ -22,9 +28,10 @@ class PeriksaIbu extends BaseController
     {
         $data = [
             'title' => 'Pemeriksaan Ibu Hamil',
+            'periksaIbu' => $this->periksaIbu->findPeriksaIbu(),
         ];
 
-        return view('periksa_balita/index', $data);
+        return view('periksa_ibu/index', $data);
     }
 
     /**
@@ -35,11 +42,11 @@ class PeriksaIbu extends BaseController
     public function show($id = null)
     {
         $data = [
-            'title' => 'Detail Data Pemeriksaan Balita',
-            'periksaBalita' => $this->periksaBalita->findPeriksaBalita($id),
+            'title' => 'Detail Data Pemeriksaan Ibu Hamil',
+            'periksaIbu' => $this->periksaIbu->findperiksaIbu($id),
         ];
 
-        return view('periksa_balita/detail_periksa_balita', $data);
+        return view('periksa_ibu/detail_periksa_ibu', $data);
     }
 
     /**
@@ -50,13 +57,14 @@ class PeriksaIbu extends BaseController
     public function new()
     {
         $data = [
-            'title' => 'Tambah Data Pemeriksaan Balita',
+            'title' => 'Tambah Data Pemeriksaan Ibu Hamil',
             'validation' => Services::validation(),
-            'balita' => $this->balita->findBalitaIbu(),
+            'ibu' => $this->ibu->findAll(),
+            'imunisasi' => $this->imunisasi->findAll(),
             'vitamin' => $this->vitamin->findAll(),
         ];
 
-        return view('periksa_balita/add_periksa_balita', $data);
+        return view('periksa_ibu/add_periksa_ibu', $data);
     }
 
     /**
@@ -67,16 +75,43 @@ class PeriksaIbu extends BaseController
     public function create()
     {
         if (!$this->validate([
-            'tanggal_periksa' => [
+            'tanggal_periksa_ibu' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Tanggal harus diisi!'
                 ]
             ],
-            'id_balita' => [
+            'id_ibu' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Balita & Ibu harus diisi!'
+                    'required' => 'Nama Ibu harus diisi!'
+                ]
+            ],
+            'uk_periksa_ibu' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Usia Kandungan harus diisi!'
+                ]
+            ],
+            'bb_periksa_ibu' => [
+                'rules' => 'required|decimal',
+                'errors' => [
+                    'required' => 'Berat Badan harus diisi!',
+                    'decimal' => 'Berat Badan tidak valid!',
+                ]
+            ],
+            'lila_periksa_ibu' => [
+                'rules' => 'required|decimal',
+                'errors' => [
+                    'required' => 'Lingkar Lengan harus diisi!',
+                    'decimal' => 'Lingkar Lengan tidak valid!',
+                ]
+            ],
+            'tfundus_periksa_ibu' => [
+                'rules' => 'required|decimal',
+                'errors' => [
+                    'required' => 'Tinggi Fundus harus diisi!',
+                    'decimal' => 'Tinggi Fundus tidak valid!',
                 ]
             ],
             'id_vitamin' => [
@@ -85,51 +120,52 @@ class PeriksaIbu extends BaseController
                     'required' => 'Vitamin harus diisi!'
                 ]
             ],
-            'keterangan_periksa' => [
+            'id_imunisasi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Imunisasi harus diisi!'
+                ]
+            ],
+            'konseling_periksa_ibu' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Konseling harus diisi!'
+                ]
+            ],
+            'keluhan_periksa_ibu' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Keluhan harus diisi!'
+                ]
+            ],
+            'keterangan_periksa_ibu' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Keterangan harus diisi!'
                 ]
             ],
-            'tb_periksa' => [
-                'rules' => 'required|numeric',
-                'errors' => [
-                    'required' => 'Panjang Badan harus diisi!',
-                    'numeric' => 'Panjang Badan harus angka!',
-                ]
-            ],
-            'bb_periksa' => [
-                'rules' => 'required|decimal',
-                'errors' => [
-                    'required' => 'Berat Badan harus diisi!',
-                    'decimal' => 'Berat Badan tidak valid!',
-                ]
-            ],
-            'lk_periksa' => [
-                'rules' => 'required|numeric',
-                'errors' => [
-                    'required' => 'Lingkar Kepala harus diisi!',
-                    'numeric' => 'Lingkar Kepala harus angka!',
-                ]
-            ],
         ])) {
-            return redirect()->to('/periksabalita/new')->withInput();
+            return redirect()->to('/periksaibu/new')->withInput();
         }
 
-        $this->periksaBalita->save([
+        $this->periksaIbu->save([
             'id_pemeriksa' => $this->request->getVar('id_user'),
-            'id_balita' => $this->request->getVar('id_balita'),
-            'tanggal_periksa' => $this->request->getVar('tanggal_periksa'),
-            'tb_periksa' => $this->request->getVar('tb_periksa'),
-            'bb_periksa' => $this->request->getVar('bb_periksa'),
-            'lk_periksa' => $this->request->getVar('lk_periksa'),
+            'id_ibu' => $this->request->getVar('id_ibu'),
+            'tanggal_periksa_ibu' => $this->request->getVar('tanggal_periksa_ibu'),
+            'uk_periksa_ibu' => $this->request->getVar('uk_periksa_ibu'),
+            'bb_periksa_ibu' => $this->request->getVar('bb_periksa_ibu'),
+            'lila_periksa_ibu' => $this->request->getVar('lila_periksa_ibu'),
+            'tfundus_periksa_ibu' => $this->request->getVar('tfundus_periksa_ibu'),
+            'id_imunisasi' => $this->request->getVar('id_imunisasi'),
             'id_vitamin' => $this->request->getVar('id_vitamin'),
-            'keterangan_periksa' => $this->request->getVar('keterangan_periksa'),
-            'date_created_periksa' => date('Y-m-d h:m:s'),
+            'konseling_periksa_ibu' => $this->request->getVar('konseling_periksa_ibu'),
+            'keluhan_periksa_ibu' => $this->request->getVar('keluhan_periksa_ibu'),
+            'keterangan_periksa_ibu' => $this->request->getVar('keterangan_periksa_ibu'),
+            'date_created_periksa_ibu' => date('Y-m-d h:m:s'),
         ]);
 
-        session()->setFlashdata('message', '<div class="alert alert-success" role="alert">Data <strong>pemeriksaan balita</strong> berhasil ditambahkan!</div>');
-        return redirect()->to('/periksabalita')->withInput();
+        session()->setFlashdata('message', '<div class="alert alert-success" role="alert">Data <strong>pemeriksaan ibu hamil</strong> berhasil ditambahkan!</div>');
+        return redirect()->to('/periksaibu')->withInput();
     }
 
     /**
@@ -140,14 +176,15 @@ class PeriksaIbu extends BaseController
     public function edit($id = null)
     {
         $data = [
-            'title' => 'Ubah Data Pemeriksaan Balita',
+            'title' => 'Ubah Data Pemeriksaan Ibu Hamil',
             'validation' => Services::validation(),
-            'balita' => $this->balita->findBalitaIbu(),
+            'ibu' => $this->ibu->findAll(),
+            'imunisasi' => $this->imunisasi->findAll(),
             'vitamin' => $this->vitamin->findAll(),
-            'periksaBalita' => $this->periksaBalita->findPeriksaBalita($id),
+            'periksaIbu' => $this->periksaIbu->findperiksaIbu($id),
         ];
 
-        return view('periksa_balita/edit_periksa_balita', $data);
+        return view('periksa_ibu/edit_periksa_ibu', $data);
     }
 
     /**
@@ -158,16 +195,43 @@ class PeriksaIbu extends BaseController
     public function update($id = null)
     {
         if (!$this->validate([
-            'tanggal_periksa' => [
+            'tanggal_periksa_ibu' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Tanggal harus diisi!'
                 ]
             ],
-            'id_balita' => [
+            'id_ibu' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Balita & Ibu harus diisi!'
+                    'required' => 'Nama Ibu harus diisi!'
+                ]
+            ],
+            'uk_periksa_ibu' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Usia Kandungan harus diisi!'
+                ]
+            ],
+            'bb_periksa_ibu' => [
+                'rules' => 'required|decimal',
+                'errors' => [
+                    'required' => 'Berat Badan harus diisi!',
+                    'decimal' => 'Berat Badan tidak valid!',
+                ]
+            ],
+            'lila_periksa_ibu' => [
+                'rules' => 'required|decimal',
+                'errors' => [
+                    'required' => 'Lingkar Lengan harus diisi!',
+                    'decimal' => 'Lingkar Lengan tidak valid!',
+                ]
+            ],
+            'tfundus_periksa_ibu' => [
+                'rules' => 'required|decimal',
+                'errors' => [
+                    'required' => 'Tinggi Fundus harus diisi!',
+                    'decimal' => 'Tinggi Fundus tidak valid!',
                 ]
             ],
             'id_vitamin' => [
@@ -176,52 +240,53 @@ class PeriksaIbu extends BaseController
                     'required' => 'Vitamin harus diisi!'
                 ]
             ],
-            'keterangan_periksa' => [
+            'id_imunisasi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Imunisasi harus diisi!'
+                ]
+            ],
+            'konseling_periksa_ibu' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Konseling harus diisi!'
+                ]
+            ],
+            'keluhan_periksa_ibu' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Keluhan harus diisi!'
+                ]
+            ],
+            'keterangan_periksa_ibu' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Keterangan harus diisi!'
                 ]
             ],
-            'tb_periksa' => [
-                'rules' => 'required|numeric',
-                'errors' => [
-                    'required' => 'Panjang Badan harus diisi!',
-                    'numeric' => 'Panjang Badan harus angka!',
-                ]
-            ],
-            'bb_periksa' => [
-                'rules' => 'required|decimal',
-                'errors' => [
-                    'required' => 'Berat Badan harus diisi!',
-                    'decimal' => 'Berat Badan tidak valid!',
-                ]
-            ],
-            'lk_periksa' => [
-                'rules' => 'required|numeric',
-                'errors' => [
-                    'required' => 'Lingkar Kepala harus diisi!',
-                    'numeric' => 'Lingkar Kepala harus angka!',
-                ]
-            ],
         ])) {
-            return redirect()->to('/periksabalita/edit/' . $this->request->getVar('id_periksa_balita'))->withInput();
+            return redirect()->to('/periksaibu/edit/' . $this->request->getVar('id_periksa_ibu'))->withInput();
         }
 
-        $this->periksaBalita->save([
-            'id_periksa_balita' => $id,
+        $this->periksaIbu->save([
+            'id_periksa_ibu' => $id,
             'id_pemeriksa' => $this->request->getVar('id_user'),
-            'id_balita' => $this->request->getVar('id_balita'),
-            'tanggal_periksa' => $this->request->getVar('tanggal_periksa'),
-            'tb_periksa' => $this->request->getVar('tb_periksa'),
-            'bb_periksa' => $this->request->getVar('bb_periksa'),
-            'lk_periksa' => $this->request->getVar('lk_periksa'),
+            'id_ibu' => $this->request->getVar('id_ibu'),
+            'tanggal_periksa_ibu' => $this->request->getVar('tanggal_periksa_ibu'),
+            'uk_periksa_ibu' => $this->request->getVar('uk_periksa_ibu'),
+            'bb_periksa_ibu' => $this->request->getVar('bb_periksa_ibu'),
+            'lila_periksa_ibu' => $this->request->getVar('lila_periksa_ibu'),
+            'tfundus_periksa_ibu' => $this->request->getVar('tfundus_periksa_ibu'),
+            'id_imunisasi' => $this->request->getVar('id_imunisasi'),
             'id_vitamin' => $this->request->getVar('id_vitamin'),
-            'keterangan_periksa' => $this->request->getVar('keterangan_periksa'),
-            'date_updated_periksa' => date('Y-m-d h:m:s'),
+            'konseling_periksa_ibu' => $this->request->getVar('konseling_periksa_ibu'),
+            'keluhan_periksa_ibu' => $this->request->getVar('keluhan_periksa_ibu'),
+            'keterangan_periksa_ibu' => $this->request->getVar('keterangan_periksa_ibu'),
+            'date_updated_periksa_ibu' => date('Y-m-d h:m:s'),
         ]);
 
-        session()->setFlashdata('message', '<div class="alert alert-success" role="alert">Data <strong>pemeriksaan balita</strong> berhasil diubah!</div>');
-        return redirect()->to('/periksabalita')->withInput();
+        session()->setFlashdata('message', '<div class="alert alert-success" role="alert">Data <strong>pemeriksaan ibu hamil</strong> berhasil diubah!</div>');
+        return redirect()->to('/periksaibu')->withInput();
     }
 
     /**
@@ -231,8 +296,8 @@ class PeriksaIbu extends BaseController
      */
     public function delete($id = null)
     {
-        $this->periksaBalita->delete($id);
-        session()->setFlashdata('message', '<div class="alert alert-success" role="alert">Data <strong>pemeriksaan balita</strong> berhasil dihapus!</div>');
-        return redirect()->to('/periksabalita')->withInput();
+        $this->periksaIbu->delete($id);
+        session()->setFlashdata('message', '<div class="alert alert-success" role="alert">Data <strong>pemeriksaan ibu hamil</strong> berhasil dihapus!</div>');
+        return redirect()->to('/periksaibu')->withInput();
     }
 }

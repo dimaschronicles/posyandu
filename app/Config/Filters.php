@@ -84,6 +84,10 @@ class Filters extends BaseConfig
                 '/balita/*',
                 '/imunisasibalita',
                 '/imunisasibalita/*',
+                '/periksabalita',
+                '/periksabalita/*',
+                '/periksaibu',
+                '/periksaibu/*',
             ]
         ]
     ];

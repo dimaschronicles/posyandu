@@ -42,4 +42,16 @@ class PeriksaBalitaModel extends Model
             ->orderBy('tanggal_periksa', 'desc')
             ->get()->getRowArray();
     }
+
+    public function filterPeriksaBalita($dari_tanggal, $sampai_tanggal)
+    {
+        return $this->db->table('periksa_balita')->select('*')
+            ->where(['tanggal_periksa >=' => $dari_tanggal, 'tanggal_periksa <=' => $sampai_tanggal])
+            ->join('balita', 'balita.id_balita = periksa_balita.id_balita')
+            ->join('vitamin', 'vitamin.id_vitamin = periksa_balita.id_vitamin')
+            ->join('users', 'users.id_user = periksa_balita.id_pemeriksa')
+            ->join('ibu', 'ibu.id_ibu = balita.id_ibu')
+            ->orderBy('tanggal_periksa', 'desc')
+            ->get()->getResultArray();
+    }
 }

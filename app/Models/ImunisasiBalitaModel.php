@@ -39,4 +39,16 @@ class ImunisasiBalitaModel extends Model
             ->where('id_imunisasi_balita', $id)
             ->get()->getRowArray();
     }
+
+    public function filterImunisasiBalita($dari_tanggal, $sampai_tanggal)
+    {
+        return $this->db->table($this->table)->select('*')
+            ->where(['tanggal_imunisasi >=' => $dari_tanggal, 'tanggal_imunisasi <=' => $sampai_tanggal])
+            ->join('balita', 'balita.id_balita = imunisasi_balita.id_balita')
+            ->join('imunisasi', 'imunisasi.id_imunisasi = imunisasi_balita.id_imunisasi')
+            ->join('ibu', 'ibu.id_ibu = balita.id_ibu')
+            ->join('users', 'users.id_user = balita.id_user')
+            ->orderBy('tanggal_imunisasi', 'desc')
+            ->get()->getResultArray();
+    }
 }
