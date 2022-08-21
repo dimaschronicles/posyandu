@@ -19,17 +19,19 @@
                         Data Petugas
                     </a>
                 <?php endif; ?>
-                <a class="nav-link collapsed <?= ($title == "Imunisasi" || $title == "Vitamin") ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-database"></i></div>
-                    Data Master
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse <?= ($title == "Imunisasi" || $title == "Vitamin") ? 'show' : ''; ?>" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link <?= ($title == "Imunisasi") ? 'active' : ''; ?>" href="/imunisasi">Data Imunisasi</a>
-                        <a class="nav-link <?= ($title == "Vitamin") ? 'active' : ''; ?>" href="/vitamin">Data Vitamin</a>
-                    </nav>
-                </div>
+                <?php if (session('role') == 'bidan' || session('role') != 'kader') : ?>
+                    <a class="nav-link collapsed <?= ($title == "Imunisasi" || $title == "Vitamin") ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-database"></i></div>
+                        Data Master
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse <?= ($title == "Imunisasi" || $title == "Vitamin") ? 'show' : ''; ?>" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link <?= ($title == "Imunisasi") ? 'active' : ''; ?>" href="/imunisasi">Data Imunisasi</a>
+                            <a class="nav-link <?= ($title == "Vitamin") ? 'active' : ''; ?>" href="/vitamin">Data Vitamin</a>
+                        </nav>
+                    </div>
+                <?php endif; ?>
                 <a class="nav-link <?= ($title == "Data Ibu") ? 'active' : ''; ?>" href="/ibu">
                     <div class="sb-nav-link-icon"><i class="fas fa-female"></i></div>
                     Data Ibu
@@ -39,18 +41,24 @@
                     Data Balita
                 </a>
                 <div class="sb-sidenav-menu-heading">Layanan</div>
-                <a class="nav-link <?= ($title == "Imunisasi Balita") ? 'active' : ''; ?>" href="/imunisasibalita">
-                    <div class="sb-nav-link-icon"><i class="fas fa-syringe"></i></div>
-                    Imunisasi Balita
-                </a>
-                <a class="nav-link <?= ($title == "Pemeriksaan Balita") ? 'active' : ''; ?>" href="/periksabalita">
-                    <div class="sb-nav-link-icon"><i class="fas fa-child"></i></div>
-                    Pemeriksaan Balita
-                </a>
-                <a class="nav-link <?= ($title == "Pemeriksaan Ibu Hamil") ? 'active' : ''; ?>" href="/periksaibu">
-                    <div class="sb-nav-link-icon"><i class="fas fa-stethoscope"></i></div>
-                    Pemeriksaan Ibu Hamil
-                </a>
+                <?php if (session('role') == 'bidan' || session('role') != 'kader') : ?>
+                    <a class="nav-link <?= ($title == "Imunisasi Balita") ? 'active' : ''; ?>" href="/imunisasibalita">
+                        <div class="sb-nav-link-icon"><i class="fas fa-syringe"></i></div>
+                        Imunisasi Balita
+                    </a>
+                <?php endif; ?>
+                <?php if (session('role') == 'kader' || session('role') != 'bidan') : ?>
+                    <a class="nav-link <?= ($title == "Pemeriksaan Balita") ? 'active' : ''; ?>" href="/periksabalita">
+                        <div class="sb-nav-link-icon"><i class="fas fa-child"></i></div>
+                        Pemeriksaan Balita
+                    </a>
+                <?php endif; ?>
+                <?php if (session('role') == 'bidan' || session('role') != 'kader') : ?>
+                    <a class="nav-link <?= ($title == "Pemeriksaan Ibu Hamil") ? 'active' : ''; ?>" href="/periksaibu">
+                        <div class="sb-nav-link-icon"><i class="fas fa-stethoscope"></i></div>
+                        Pemeriksaan Ibu Hamil
+                    </a>
+                <?php endif; ?>
                 <div class="sb-sidenav-menu-heading">Laporan</div>
                 <!-- <a class="nav-link" href="">
                     <div class="sb-nav-link-icon"><i class="fas fa-file"></i></div>
@@ -63,9 +71,15 @@
                 </a>
                 <div class="collapse <?= ($title == "Laporan Imunisasi Balita" || $title == "Laporan Pemeriksaan Balita" || $title == "Laporan Pemeriksaan Ibu Hamil") ? 'show' : ''; ?>" id="collapseLayoutsLap" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link <?= ($title == "Laporan Imunisasi Balita") ? 'active' : ''; ?>" href="/laporan/imunisasibalita">Imunisasi Balita</a>
-                        <a class="nav-link <?= ($title == "Laporan Pemeriksaan Balita") ? 'active' : ''; ?>" href="/laporan/periksabalita">Pemeriksaan Balita</a>
-                        <a class="nav-link <?= ($title == "Laporan Pemeriksaan Ibu Hamil") ? 'active' : ''; ?>" href="/laporan/periksaibu">Pemeriksaan Ibu Hamil</a>
+                        <?php if (session('role') == 'bidan' || session('role') == 'admin' || session('role') != 'kader') : ?>
+                            <a class="nav-link <?= ($title == "Laporan Imunisasi Balita") ? 'active' : ''; ?>" href="/laporan/imunisasibalita">Imunisasi Balita</a>
+                        <?php endif; ?>
+                        <?php if (session('role') == 'kader' || session('role') == 'admin' || session('role') != 'bidan') : ?>
+                            <a class="nav-link <?= ($title == "Laporan Pemeriksaan Balita") ? 'active' : ''; ?>" href="/laporan/periksabalita">Pemeriksaan Balita</a>
+                        <?php endif; ?>
+                        <?php if (session('role') == 'bidan' || session('role') == 'admin' || session('role') != 'kader') : ?>
+                            <a class="nav-link <?= ($title == "Laporan Pemeriksaan Ibu Hamil") ? 'active' : ''; ?>" href="/laporan/periksaibu">Pemeriksaan Ibu Hamil</a>
+                        <?php endif; ?>
                     </nav>
                 </div>
             </div>

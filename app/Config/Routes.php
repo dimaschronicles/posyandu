@@ -37,73 +37,74 @@ $routes->get('/logout', 'Auth::logout');
 
 $routes->get('/dashboard', 'Dashboard::index');
 
-$routes->get('/imunisasi', 'Imunisasi::index');
-$routes->post('/imunisasi', 'Imunisasi::create');
-$routes->delete('/imunisasi/(:num)', 'Imunisasi::delete/$1');
+$routes->get('/imunisasi', 'Imunisasi::index', ['filter' => 'isBidan']);
+$routes->post('/imunisasi', 'Imunisasi::create', ['filter' => 'isBidan']);
+$routes->delete('/imunisasi/(:num)', 'Imunisasi::delete/$1', ['filter' => 'isBidan']);
 
-$routes->get('/vitamin', 'Vitamin::index');
-$routes->post('/vitamin', 'Vitamin::create');
-$routes->delete('/vitamin/(:num)', 'Vitamin::delete/$1');
+$routes->get('/vitamin', 'Vitamin::index', ['filter' => 'isBidan']);
+$routes->post('/vitamin', 'Vitamin::create', ['filter' => 'isBidan']);
+$routes->delete('/vitamin/(:num)', 'Vitamin::delete/$1', ['filter' => 'isBidan']);
 
-$routes->get('/petugas', 'Petugas::index');
-$routes->get('/petugas/(:num)', 'Petugas::show/$1');
-$routes->get('/petugas/new', 'Petugas::new');
-$routes->get('/petugas/edit/(:num)', 'Petugas::edit/$1');
-$routes->post('/petugas', 'Petugas::create');
-$routes->put('/petugas/(:num)', 'Petugas::update/$1');
-$routes->delete('/petugas/(:num)', 'Petugas::delete/$1');
+$routes->get('/petugas', 'Petugas::index', ['filter' => 'isAdmin']);
+$routes->get('/petugas/(:num)', 'Petugas::show/$1', ['filter' => 'isAdmin']);
+$routes->get('/petugas/new', 'Petugas::new', ['filter' => 'isAdmin']);
+$routes->get('/petugas/edit/(:num)', 'Petugas::edit/$1', ['filter' => 'isAdmin']);
+$routes->post('/petugas', 'Petugas::create', ['filter' => 'isAdmin']);
+$routes->put('/petugas/(:num)', 'Petugas::update/$1', ['filter' => 'isAdmin']);
+$routes->delete('/petugas/(:num)', 'Petugas::delete/$1', ['filter' => 'isAdmin']);
 
-$routes->get('/ibu', 'Ibu::index');
+$routes->get('/ibu', 'Ibu::index', ['filter' => 'isKader']);
 $routes->get('/ibu/new', 'Ibu::new');
-$routes->get('/ibu/edit/(:num)', 'Ibu::edit/$1');
-$routes->get('/ibu/(:num)', 'Ibu::show/$1');
-$routes->post('/ibu', 'Ibu::create');
-$routes->put('/ibu/(:num)', 'Ibu::update/$1');
-$routes->delete('/ibu/(:num)', 'Ibu::delete/$1');
+$routes->get('/ibu/edit/(:num)', 'Ibu::edit/$1', ['filter' => 'isKader']);
+$routes->get('/ibu/(:num)', 'Ibu::show/$1', ['filter' => 'isKader']);
+$routes->post('/ibu', 'Ibu::create', ['filter' => 'isKader']);
+$routes->put('/ibu/(:num)', 'Ibu::update/$1', ['filter' => 'isKader']);
+$routes->delete('/ibu/(:num)', 'Ibu::delete/$1', ['filter' => 'isKader']);
 
-$routes->get('/balita', 'Balita::index');
-$routes->get('/balita/new', 'Balita::new');
-$routes->get('/balita/edit/(:num)', 'Balita::edit/$1');
-$routes->get('/balita/(:num)', 'Balita::show/$1');
-$routes->post('/balita', 'Balita::create');
-$routes->put('/balita/(:num)', 'Balita::update/$1');
-$routes->delete('/balita/(:num)', 'Balita::delete/$1');
+$routes->get('/balita', 'Balita::index', ['filter' => 'isKader']);
+$routes->get('/balita/new', 'Balita::new', ['filter' => 'isKader']);
+$routes->get('/balita/edit/(:num)', 'Balita::edit/$1', ['filter' => 'isKader']);
+$routes->get('/balita/(:num)', 'Balita::show/$1', ['filter' => 'isKader']);
+$routes->post('/balita', 'Balita::create', ['filter' => 'isKader']);
+$routes->put('/balita/(:num)', 'Balita::update/$1', ['filter' => 'isKader']);
+$routes->delete('/balita/(:num)', 'Balita::delete/$1', ['filter' => 'isKader']);
 
-$routes->get('/imunisasibalita', 'ImunisasiBalita::index');
-$routes->get('/imunisasibalita/new', 'ImunisasiBalita::new');
-$routes->get('/imunisasibalita/edit/(:num)', 'ImunisasiBalita::edit/$1');
-$routes->get('/imunisasibalita/(:num)', 'ImunisasiBalita::show/$1');
-$routes->post('/imunisasibalita', 'ImunisasiBalita::create');
-$routes->put('/imunisasibalita/(:num)', 'ImunisasiBalita::update/$1');
-$routes->delete('/imunisasibalita/(:num)', 'ImunisasiBalita::delete/$1');
-$routes->get('/imunisasibalita/getbalita/(:num)', 'ImunisasiBalita::getBalita/$1');
+$routes->get('/imunisasibalita', 'ImunisasiBalita::index', ['filter' => 'isBidan']);
+$routes->get('/imunisasibalita/new', 'ImunisasiBalita::new', ['filter' => 'isBidan']);
+$routes->get('/imunisasibalita/edit/(:num)', 'ImunisasiBalita::edit/$1', ['filter' => 'isBidan']);
+$routes->get('/imunisasibalita/(:num)', 'ImunisasiBalita::show/$1', ['filter' => 'isBidan']);
+$routes->post('/imunisasibalita', 'ImunisasiBalita::create', ['filter' => 'isBidan']);
+$routes->put('/imunisasibalita/(:num)', 'ImunisasiBalita::update/$1', ['filter' => 'isBidan']);
+$routes->delete('/imunisasibalita/(:num)', 'ImunisasiBalita::delete/$1', ['filter' => 'isBidan']);
+$routes->get('/imunisasibalita/getbalita/(:num)', 'ImunisasiBalita::getBalita/$1', ['filter' => 'isBidan']);
 
-$routes->get('/periksabalita', 'PeriksaBalita::index');
-$routes->get('/periksabalita/new', 'PeriksaBalita::new');
-$routes->get('/periksabalita/edit/(:num)', 'PeriksaBalita::edit/$1');
-$routes->get('/periksabalita/(:num)', 'PeriksaBalita::show/$1');
-$routes->post('/periksabalita', 'PeriksaBalita::create');
-$routes->put('/periksabalita/(:num)', 'PeriksaBalita::update/$1');
-$routes->delete('/periksabalita/(:num)', 'PeriksaBalita::delete/$1');
+$routes->get('/periksabalita', 'PeriksaBalita::index', ['filter' => 'isKader']);
+$routes->get('/periksabalita/new', 'PeriksaBalita::new', ['filter' => 'isKader']);
+$routes->get('/periksabalita/edit/(:num)', 'PeriksaBalita::edit/$1', ['filter' => 'isKader']);
+$routes->get('/periksabalita/(:num)', 'PeriksaBalita::show/$1', ['filter' => 'isKader']);
+$routes->post('/periksabalita', 'PeriksaBalita::create', ['filter' => 'isKader']);
+$routes->put('/periksabalita/(:num)', 'PeriksaBalita::update/$1', ['filter' => 'isKader']);
+$routes->delete('/periksabalita/(:num)', 'PeriksaBalita::delete/$1', ['filter' => 'isKader']);
 
-$routes->get('/periksaibu', 'PeriksaIbu::index');
-$routes->get('/periksaibu/new', 'PeriksaIbu::new');
-$routes->get('/periksaibu/edit/(:num)', 'PeriksaIbu::edit/$1');
-$routes->get('/periksaibu/(:num)', 'PeriksaIbu::show/$1');
-$routes->post('/periksaibu', 'PeriksaIbu::create');
-$routes->put('/periksaibu/(:num)', 'PeriksaIbu::update/$1');
-$routes->delete('/periksaibu/(:num)', 'PeriksaIbu::delete/$1');
+$routes->get('/periksaibu', 'PeriksaIbu::index', ['filter' => 'isBidan']);
+$routes->get('/periksaibu/new', 'PeriksaIbu::new', ['filter' => 'isBidan']);
+$routes->get('/periksaibu/edit/(:num)', 'PeriksaIbu::edit/$1', ['filter' => 'isBidan']);
+$routes->get('/periksaibu/(:num)', 'PeriksaIbu::show/$1', ['filter' => 'isBidan']);
+$routes->post('/periksaibu', 'PeriksaIbu::create', ['filter' => 'isBidan']);
+$routes->put('/periksaibu/(:num)', 'PeriksaIbu::update/$1', ['filter' => 'isBidan']);
+$routes->delete('/periksaibu/(:num)', 'PeriksaIbu::delete/$1', ['filter' => 'isBidan']);
 
-$routes->get('/laporan/imunisasibalita', 'Laporan::imunisasiBalita');
-$routes->get('/laporan/imunisasibalitaprint', 'Laporan::imunisasiBalitaPrint');
-$routes->get('/laporan/imunisasibalitapdf', 'Laporan::imunisasiBalitaPdf');
-$routes->get('/laporan/periksabalita', 'Laporan::periksaBalita');
-$routes->get('/laporan/periksabalitaprint', 'Laporan::periksaBalitaPrint');
-$routes->get('/laporan/periksabalitapdf', 'Laporan::periksaBalitaPdf');
-$routes->get('/laporan/periksaibu', 'Laporan::periksaIbu');
-$routes->get('/laporan/periksaibuprint', 'Laporan::periksaIbuPrint');
-$routes->get('/laporan/periksaibupdf', 'Laporan::periksaIbuPdf');
+$routes->get('/laporan/imunisasibalita', 'Laporan::imunisasiBalita', ['filter' => 'isBidan']);
+$routes->get('/laporan/imunisasibalitaprint', 'Laporan::imunisasiBalitaPrint', ['filter' => 'isBidan']);
+$routes->get('/laporan/imunisasibalitapdf', 'Laporan::imunisasiBalitaPdf', ['filter' => 'isBidan']);
+$routes->get('/laporan/periksabalita', 'Laporan::periksaBalita', ['filter' => 'isKader']);
+$routes->get('/laporan/periksabalitaprint', 'Laporan::periksaBalitaPrint', ['filter' => 'isKader']);
+$routes->get('/laporan/periksabalitapdf', 'Laporan::periksaBalitaPdf', ['filter' => 'isKader']);
+$routes->get('/laporan/periksaibu', 'Laporan::periksaIbu', ['filter' => 'isBidan']);
+$routes->get('/laporan/periksaibuprint', 'Laporan::periksaIbuPrint', ['filter' => 'isBidan']);
+$routes->get('/laporan/periksaibupdf', 'Laporan::periksaIbuPdf', ['filter' => 'isBidan']);
 
+$routes->get('/profil', 'Profil::index');
 
 /*
  * --------------------------------------------------------------------

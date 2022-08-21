@@ -13,8 +13,11 @@
                 <i class="fas fa-user fa-fw"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Settings</a></li>
-                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                <li><a class="dropdown-item" href="/profil">Profil</a></li>
+                <li><a class="dropdown-item" href="/profil/changepassword">Ganti Password</a></li>
+                <?php if (session('role') == 'admin') : ?>
+                    <li><a class="dropdown-item" href="/profil/resetpassword">Reset Password</a></li>
+                <?php endif; ?>
                 <li>
                     <hr class="dropdown-divider" />
                 </li>

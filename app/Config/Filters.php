@@ -2,6 +2,9 @@
 
 namespace Config;
 
+use App\Filters\AdminFilter;
+use App\Filters\BidanFilter;
+use App\Filters\KaderFilter;
 use App\Filters\LoginFilter;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
@@ -25,6 +28,9 @@ class Filters extends BaseConfig
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'isLogin' => LoginFilter::class,
+        'isAdmin' => AdminFilter::class,
+        'isKader' => KaderFilter::class,
+        'isBidan' => BidanFilter::class,
     ];
 
     /**
@@ -88,6 +94,12 @@ class Filters extends BaseConfig
                 '/periksabalita/*',
                 '/periksaibu',
                 '/periksaibu/*',
+                '/laporan',
+                '/laporan/*',
+                '/petugas',
+                '/petugas/*',
+                '/profil',
+                '/profil/*',
             ]
         ]
     ];
