@@ -90,16 +90,10 @@ class Balita extends BaseController
                     'required' => 'Tanggal Lahir harus diisi!'
                 ]
             ],
-            'jenis_kelamin' => [
+            'jk_balita' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Jenis Kelamin harus diisi!'
-                ]
-            ],
-            'alamat' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Alamat harus diisi!'
                 ]
             ],
             'id_ibu' => [
@@ -109,10 +103,10 @@ class Balita extends BaseController
                 ]
             ],
             'panjang_badan' => [
-                'rules' => 'required|numeric',
+                'rules' => 'required|decimal',
                 'errors' => [
                     'required' => 'Panjang Badan harus diisi!',
-                    'numeric' => 'Panjang Badan harus angka!',
+                    'decimal' => 'Panjang Badan tidak valid!',
                 ]
             ],
             'berat_lahir' => [
@@ -123,10 +117,10 @@ class Balita extends BaseController
                 ]
             ],
             'lingkar_kepala' => [
-                'rules' => 'required|numeric',
+                'rules' => 'required|decimal',
                 'errors' => [
                     'required' => 'Lingkar Kepala harus diisi!',
-                    'numeric' => 'Lingkar Kepala harus angka!',
+                    'decimal' => 'Lingkar Kepala tidak valid!',
                 ]
             ],
         ])) {
@@ -134,11 +128,12 @@ class Balita extends BaseController
         }
 
         $this->balita->save([
-            'id_ibu' => $this->request->getVar('nama_ibu'),
+            'id_ibu' => $this->request->getVar('id_ibu'),
             'id_user' => $this->request->getVar('id_user'),
+            'nik_balita' => $this->request->getVar('nik_balita'),
             'nama_balita' => $this->request->getVar('nama_balita'),
-            'tanggal_lahir_balita' => $this->request->getVar('tanggal_lahir'),
-            'jk_balita' => $this->request->getVar('jenis_kelamin'),
+            'tanggal_lahir_balita' => $this->request->getVar('tanggal_lahir_balita'),
+            'jk_balita' => $this->request->getVar('jk_balita'),
             'panjang_badan' => $this->request->getVar('panjang_badan'),
             'berat_lahir' => $this->request->getVar('berat_lahir'),
             'lingkar_kepala' => $this->request->getVar('lingkar_kepala'),
@@ -195,7 +190,7 @@ class Balita extends BaseController
                     'required' => 'Tanggal Lahir harus diisi!'
                 ]
             ],
-            'jenis_kelamin' => [
+            'jk_balita' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Jenis Kelamin harus diisi!'
@@ -208,10 +203,10 @@ class Balita extends BaseController
                 ]
             ],
             'panjang_badan' => [
-                'rules' => 'required|numeric',
+                'rules' => 'required|decimal',
                 'errors' => [
                     'required' => 'Panjang Badan harus diisi!',
-                    'numeric' => 'Panjang Badan harus angka!',
+                    'decimal' => 'Panjang Badan tidak valid!',
                 ]
             ],
             'berat_lahir' => [
@@ -222,10 +217,10 @@ class Balita extends BaseController
                 ]
             ],
             'lingkar_kepala' => [
-                'rules' => 'required|numeric',
+                'rules' => 'required|decimal',
                 'errors' => [
                     'required' => 'Lingkar Kepala harus diisi!',
-                    'numeric' => 'Lingkar Kepala harus angka!',
+                    'decimal' => 'Lingkar Kepala tidak valid!',
                 ]
             ],
         ])) {
@@ -238,7 +233,7 @@ class Balita extends BaseController
             'id_user' => $this->request->getVar('id_user'),
             'nama_balita' => $this->request->getVar('nama_balita'),
             'tanggal_lahir_balita' => $this->request->getVar('tanggal_lahir_balita'),
-            'jk_balita' => $this->request->getVar('jenis_kelamin'),
+            'jk_balita' => $this->request->getVar('jk_balita'),
             'panjang_badan' => $this->request->getVar('panjang_badan'),
             'berat_lahir' => $this->request->getVar('berat_lahir'),
             'lingkar_kepala' => $this->request->getVar('lingkar_kepala'),

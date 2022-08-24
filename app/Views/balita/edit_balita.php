@@ -46,16 +46,16 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                                <label for="jk_balita" class="form-label">Jenis Kelamin</label>
                                 <div class="form-check">
-                                    <input class="form-check-input  <?= ($validation->hasError('jenis_kelamin')) ? 'is-invalid' : ''; ?>" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="Laki-laki" <?= ($balita['jenis_kelamin'] == 'Laki-laki') ? 'checked' : old('jenis_kelamin'); ?>>
-                                    <label class="form-check-label" for="jenis_kelamin1">Laki-laki</label>
+                                    <input class="form-check-input  <?= ($validation->hasError('jk_balita')) ? 'is-invalid' : ''; ?>" type="radio" name="jk_balita" id="jk_balita" value="Laki-laki" <?= ($balita['jk_balita'] == 'Laki-laki') ? 'checked' : old('jk_balita'); ?>>
+                                    <label class="form-check-label" for="jk_balita1">Laki-laki</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input  <?= ($validation->hasError('jenis_kelamin')) ? 'is-invalid' : ''; ?>" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="Perempuan" <?= ($balita['jenis_kelamin'] == 'Perempuan') ? 'checked' : old('jenis_kelamin'); ?>>
-                                    <label class="form-check-label" for="jenis_kelamin">Perempuan</label>
+                                    <input class="form-check-input  <?= ($validation->hasError('jk_balita')) ? 'is-invalid' : ''; ?>" type="radio" name="jk_balita" id="jk_balita" value="Perempuan" <?= ($balita['jk_balita'] == 'Perempuan') ? 'checked' : old('jk_balita'); ?>>
+                                    <label class="form-check-label" for="jk_balita">Perempuan</label>
                                     <div class="invalid-feedback">
-                                        <?= $validation->getError('jenis_kelamin'); ?>
+                                        <?= $validation->getError('jk_balita'); ?>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                             <div class="mb-3">
                                 <label for="panjang_badan" class="form-label">Panjang Badan</label>
                                 <div class="input-group mb-3">
-                                    <input type="number" class="form-control <?= ($validation->hasError('panjang_badan')) ? 'is-invalid' : ''; ?>" id="panjang_badan" name="panjang_badan" placeholder="Masukan panjang badan..." value="<?= ($balita['panjang_badan']) ? $balita['panjang_badan'] : old('panjang_badan'); ?>">
+                                    <input type="text" class="form-control <?= ($validation->hasError('panjang_badan')) ? 'is-invalid' : ''; ?>" id="panjang_badan" name="panjang_badan" placeholder="Masukan panjang badan..." value="<?= ($balita['panjang_badan']) ? $balita['panjang_badan'] : old('panjang_badan'); ?>">
                                     <span class="input-group-text">cm</span>
                                     <div class="invalid-feedback">
                                         <?= $validation->getError('panjang_badan'); ?>
@@ -100,7 +100,7 @@
                             <div class="mb-3">
                                 <label for="lingkar_kepala" class="form-label">Lingkar Kepala</label>
                                 <div class="input-group mb-3">
-                                    <input type="number" class="form-control <?= ($validation->hasError('lingkar_kepala')) ? 'is-invalid' : ''; ?>" id="lingkar_kepala" name="lingkar_kepala" placeholder="Masukan lingkar kepala..." value="<?= ($balita['lingkar_kepala']) ? $balita['lingkar_kepala'] : old('lingkar_kepala'); ?>">
+                                    <input type="text" class="form-control <?= ($validation->hasError('lingkar_kepala')) ? 'is-invalid' : ''; ?>" id="lingkar_kepala" name="lingkar_kepala" placeholder="Masukan lingkar kepala..." value="<?= ($balita['lingkar_kepala']) ? $balita['lingkar_kepala'] : old('lingkar_kepala'); ?>">
                                     <span class="input-group-text">cm</span>
                                     <div class="invalid-feedback">
                                         <?= $validation->getError('lingkar_kepala'); ?>
