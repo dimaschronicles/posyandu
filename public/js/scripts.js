@@ -46,6 +46,33 @@ function showPassKader() {
     }
 }
 
+function showPassChangePass() {
+    let pass = document.getElementById("current_password");
+    let pass_new = document.getElementById("new_password");
+    let pass_conf = document.getElementById("new_password_conf");
+    if (pass.type === "password" && pass_conf.type === "password" && pass_new.type === "password") {
+        pass.type = "text";
+        pass_conf.type = "text";
+        pass_new.type = "text";
+    } else {
+        pass.type = "password";
+        pass_conf.type = "password";
+        pass_new.type = "password";
+    }
+}
+
+function showPassReset() {
+    let pass = document.getElementById("password");
+    let pass_conf = document.getElementById("password_conf");
+    if (pass.type === "password" && pass_conf.type === "password") {
+        pass.type = "text";
+        pass_conf.type = "text";
+    } else {
+        pass.type = "password";
+        pass_conf.type = "password";
+    }
+}
+
 $(document).ready(function () {
     $('select').select2({
         theme: "bootstrap-5",

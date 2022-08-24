@@ -105,6 +105,12 @@ $routes->get('/laporan/periksaibuprint', 'Laporan::periksaIbuPrint', ['filter' =
 $routes->get('/laporan/periksaibupdf', 'Laporan::periksaIbuPdf', ['filter' => 'isBidan']);
 
 $routes->get('/profil', 'Profil::index');
+$routes->get('/profil/editprofile', 'Profil::editProfil');
+$routes->get('/profil/updateprofile', 'Profil::updateProfil');
+$routes->get('/profil/changepassword', 'Profil::changePassword');
+$routes->get('/profil/updatechangepassword', 'Profil::updateChangePassword');
+$routes->get('/profil/resetpassword', 'Profil::resetPassword', ['filter' => 'isAdmin']);
+$routes->get('/profil/updateresetpassword', 'Profil::updateResetPassword', ['filter' => 'isAdmin']);
 
 /*
  * --------------------------------------------------------------------

@@ -7,11 +7,11 @@
             <li class="breadcrumb-item active">Profil Pengguna</li>
         </ol>
         <hr>
-
-        <?= session()->getFlashdata('message'); ?>
-
         <div class="row">
             <div class="col-md-4">
+
+                <?= session()->getFlashdata('message'); ?>
+
                 <div class="card text-center shadow-sm">
                     <div class="img mt-3">
                         <img src="/img/user.png" class="img-thumbnail rounded-circle" width="200px">
