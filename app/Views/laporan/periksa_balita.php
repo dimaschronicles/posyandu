@@ -45,7 +45,7 @@
                 </div>
                 <div class="card-body">
                     <a href="/laporan/periksabalitaprint?tanggal_dari=<?= @$_GET['tanggal_dari']; ?>&tanggal_sampai=<?= @$_GET['tanggal_sampai']; ?>" target="blank" class="btn btn-success"><i class="fas fa-print"></i> Cetak Data</a>
-                    <!-- <a href="/laporan/periksabalitapdf?tanggal_dari=<?= @$_GET['tanggal_dari']; ?>&tanggal_sampai=<?= @$_GET['tanggal_sampai']; ?>" target="blank" class="btn btn-danger"><i class="fas fa-file-pdf"></i> Download PDF</a> -->
+                    <a href="/laporan/periksabalitapdf?tanggal_dari=<?= @$_GET['tanggal_dari']; ?>&tanggal_sampai=<?= @$_GET['tanggal_sampai']; ?>" target="blank" class="btn btn-danger"><i class="fas fa-file-pdf"></i> Download PDF</a>
                     <div class="table-responsive mt-3">
                         <table class="table table-striped text-center" id="datatablesSimple">
                             <thead>

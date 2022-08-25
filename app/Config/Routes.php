@@ -53,21 +53,21 @@ $routes->post('/petugas', 'Petugas::create', ['filter' => 'isAdmin']);
 $routes->put('/petugas/(:num)', 'Petugas::update/$1', ['filter' => 'isAdmin']);
 $routes->delete('/petugas/(:num)', 'Petugas::delete/$1', ['filter' => 'isAdmin']);
 
-$routes->get('/ibu', 'Ibu::index', ['filter' => 'isKader']);
+$routes->get('/ibu', 'Ibu::index');
 $routes->get('/ibu/new', 'Ibu::new');
-$routes->get('/ibu/edit/(:num)', 'Ibu::edit/$1', ['filter' => 'isKader']);
-$routes->get('/ibu/(:num)', 'Ibu::show/$1', ['filter' => 'isKader']);
-$routes->post('/ibu', 'Ibu::create', ['filter' => 'isKader']);
-$routes->put('/ibu/(:num)', 'Ibu::update/$1', ['filter' => 'isKader']);
-$routes->delete('/ibu/(:num)', 'Ibu::delete/$1', ['filter' => 'isKader']);
+$routes->get('/ibu/edit/(:num)', 'Ibu::edit/$1');
+$routes->get('/ibu/(:num)', 'Ibu::show/$1');
+$routes->post('/ibu', 'Ibu::create');
+$routes->put('/ibu/(:num)', 'Ibu::update/$1');
+$routes->delete('/ibu/(:num)', 'Ibu::delete/$1');
 
-$routes->get('/balita', 'Balita::index', ['filter' => 'isKader']);
-$routes->get('/balita/new', 'Balita::new', ['filter' => 'isKader']);
-$routes->get('/balita/edit/(:num)', 'Balita::edit/$1', ['filter' => 'isKader']);
-$routes->get('/balita/(:num)', 'Balita::show/$1', ['filter' => 'isKader']);
-$routes->post('/balita', 'Balita::create', ['filter' => 'isKader']);
-$routes->put('/balita/(:num)', 'Balita::update/$1', ['filter' => 'isKader']);
-$routes->delete('/balita/(:num)', 'Balita::delete/$1', ['filter' => 'isKader']);
+$routes->get('/balita', 'Balita::index');
+$routes->get('/balita/new', 'Balita::new');
+$routes->get('/balita/edit/(:num)', 'Balita::edit/$1');
+$routes->get('/balita/(:num)', 'Balita::show/$1');
+$routes->post('/balita', 'Balita::create');
+$routes->put('/balita/(:num)', 'Balita::update/$1');
+$routes->delete('/balita/(:num)', 'Balita::delete/$1');
 
 $routes->get('/imunisasibalita', 'ImunisasiBalita::index', ['filter' => 'isBidan']);
 $routes->get('/imunisasibalita/new', 'ImunisasiBalita::new', ['filter' => 'isBidan']);
